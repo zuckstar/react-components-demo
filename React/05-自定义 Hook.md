@@ -6,7 +6,6 @@
 
 每个自定义 hook 都拥有独立的 effect, 互不影响
 
-
 ### HOC
 
 Higher order component
@@ -14,7 +13,10 @@ Higher order component
 
 ### useState
 
+Hook 是 React 16.8 的新增特性。useState 可以让你在不编写 class 的情况下使用 state 以及其他的 React 特性。
 ### useRef
+
+ - 示例参考： Ref.tsx
 
 useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传入的参数（initialValue）。返回的 ref 对象在组件的整个生命周期内保持不变。
 
@@ -28,16 +30,21 @@ useRef 返回一个可变的 ref 对象，其 .current 属性被初始化为传�
 
 请记住，当 ref 对象内容发生变化时，useRef 并不会通知你。变更 .current 属性不会引发组件重新渲染。如果想要在 React 绑定或解绑 DOM 节点的 ref 时运行某些代码，则需要使用回调 ref 来实现。
 
+
 ### useContext
 
+ - 示例参考： Context.tsx
 #### context 是什么？
 
-- props 属性是由上到下单向传递的
-- context 提供了在组件中共享此类值的方法 
-- 支持： 16.3+
+在一个典型的 React 应用中，数据是通过 props 属性自上而下（由父及子）进行传递的，但这种做法对于某些类型的属性而言是极其繁琐的（例如：地区偏好，UI 主题），这些属性是应用程序中许多组件都需要的。Context 提供了一种在组件之间共享此类值的方式，而不必显式地通过组件树的逐层传递 props。
 
-当组件上层最近的 <MyContext.Provider> 更新时，该 Hook 会触发重渲染，并使用最新传递给 MyContext provider 的 context value 值。即使祖先使用 React.memo 或 shouldComponentUpdate，也会在组件本身使用 useContext 时重新渲染。
+#### context 使用文档
 
+https://react.docschina.org/docs/context.html
+
+#### useContext 使用文档
+
+https://react.docschina.org/docs/hooks-reference.html#usecontext
 ### Hook 规则
 
 - 只在最顶层使用 Hook

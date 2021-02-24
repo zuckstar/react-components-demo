@@ -27,6 +27,7 @@ const App: React.FC = () => {
         <img src={logo} className="App-logo" alt="logo" />
         <Link to="/hello">To Hello Page</Link>
         <Link to="/context">To Context</Link>
+        <Link to="/ref">To Ref</Link>
         <p>
           <button onClick={() => setShow(!show)}>Toggle Tracker</button>
         </p>
