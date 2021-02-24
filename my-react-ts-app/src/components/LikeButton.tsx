@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useRef, useContext } from 'react'
 import useMousePosition from '../hooks/useMousePosition'
-import { ThemeContext } from '../App'
+import { ThemeContext } from '../views/Context'
 const LikeButton: React.FC = () => {
   const [like, setLike] = useState(0)
   const likeRef = useRef(0)
