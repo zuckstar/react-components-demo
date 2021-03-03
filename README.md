@@ -49,3 +49,20 @@ components/
 
 - 保护有用的样式
 - 修复浏览器自身的bug，保证样式的一致性
+
+### Button 组件需求分析
+
+- 不同的 Button type，包括
+  - Primary
+  - Default
+  - Danger
+  - Link Button
+- 不同的 Button Size
+  - Normal
+  - Small
+  - Large
+- Disabled 状态
+
+样式分析：
+
+background、font-size、padding  
