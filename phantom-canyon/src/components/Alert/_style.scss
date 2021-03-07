@@ -1,0 +1,35 @@
+.alert {
+  position: relative;
+  display: block;
+  width: 30rem;
+  text-align: left;
+  border-radius: $alert-border-radius;
+  padding: .8rem;
+  color: $white;
+  font-size: $font-size-sm;
+  .title {
+    font-weight: $font-weight-bold;
+    display: flex;
+    justify-content: space-between;
+    .close-btn {
+      cursor: pointer;
+      user-select: none;
+    }
+  }
+  .message {
+    font-weight: $font-weight-normal;
+  }
+}
+
+.alert-default {
+  background-color: $primary;
+}
+.alert-success {
+  background-color: $success;
+}
+.alert-danger {
+  background-color: $danger;
+}
+.alert-warning {
+  background-color: $warning;
+}
