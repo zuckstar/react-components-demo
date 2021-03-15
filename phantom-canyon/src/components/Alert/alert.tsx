@@ -8,7 +8,7 @@ export enum AlertType {
   Warning = 'warning'
 }
 
-interface AlertProps {
+export interface AlertProps {
   className ?: string;
   title ?: string;
   message ?: string;
@@ -36,7 +36,7 @@ const Alert: React.FC<AlertProps> = (props) => {
   }
 
   return (
-    <div className={classes} style={{display: show ? 'block' : 'none'}}>
+    <div className={classes} style={{display: show ? 'block' : 'none'}} data-testid="alert">
       <div className="title">
         { title }
         { closeable ? <span className="close-btn" onClick={onCloseBtnClick}>X</span> : null}

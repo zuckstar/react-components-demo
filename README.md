@@ -122,3 +122,7 @@ npx jest jest.test.js --watch
 - React-testing-library(默认包含在 create-react 中)
 - Jest-dom 库，给 jest 增加了针对 DOM 相关的断言
 - 增加 SetupTests.ts ,并在文件内填入 `import '@testing-library/jest-dom'`来扩展 jest的断言库
+
+### 组件模块
+
+如何创建一个组件，如何引入一个组件，举例说明编写一个组件，以及它是怎么设计的，从头编写一个组件（现场）
