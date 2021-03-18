@@ -1,6 +1,6 @@
 import React, { useState, createContext } from 'react'
 import classNames from 'classnames'
-
+import { MenuItemProps } from './menuItem'
 
 // 类型字面量
 type MenuMode = 'horizontal' | 'vertical'
@@ -25,7 +25,8 @@ const Menu: React.FC<MenuProps> = (props) => {
   const { className, mode, style, children, defaultIndex, onSelect} = props
   const [currentActive, setActive] = useState(defaultIndex)
   const classes = classNames('menu', className, {
-    'menu-vertical': mode === 'vertical'
+    'menu-vertical': mode === 'vertical',
+    'menu-horizontal': mode !== 'vertical'
   })
   const handleClick = (index: number) => {
     setActive(index)
@@ -38,10 +39,24 @@ const Menu: React.FC<MenuProps> = (props) => {
     onSelect: handleClick
   }
 
+  const renderChildren = () => {
+    return React.Children.map(children, (child, index) => {
+      const childElement = child as React.FunctionComponentElement<MenuItemProps>
+      const { displayName } = childElement.type
+      if(displayName === 'MenuItem' || displayName === 'SubMenu') {
+        return React.cloneElement(childElement, {
+          index
+        })
+      } else {
+        console.error('Warning: Menu has a child which is not MenuItem Component.')
+      }
+    })
+  }
+
   return (
     <ul className={classes} style={style} data-testid="test-menu">
       <MenuContext.Provider value={passedContext}>
-        {children}
+        {renderChildren()}
       </MenuContext.Provider>
     </ul>
   )
