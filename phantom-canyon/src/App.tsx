@@ -1,11 +1,15 @@
-import React from 'react';
+import React, { useState } from 'react';
 import Button, { ButtonType, ButtonSize } from './components/Button/button'
 import Alert, { AlertType } from './components/Alert/alert'
 import Menu from './components/Menu/menu'
 import MenuItem from './components/Menu/menuItem'
 import SubMenu from './components/Menu/subMenu'
 import Icon from './components/Icon/icon'
+import Transition from './components/Transition/transition'
+
 function App() {
+  const [ show, setShow ] = useState(false)
+
   return (
     <div className="App">
       <header className="App-header">
@@ -40,9 +44,31 @@ function App() {
             cool link3
           </MenuItem>
         </Menu>
+        
         <div>
           <Alert alertType={AlertType.Default} title={'提示标题'} message={'this is a long description'} closeable/>
         </div>
+
+        <Button size={ButtonSize.Large} onClick={() => {setShow(!show)}}>Toggle</Button>
+
+        <Transition
+          in={show}
+          timeout={300}
+          animation="zoom-in-left"
+        >
+          <div>
+            <p>edit gogo</p>
+            <p>edit gogo</p>
+          </div>
+        </Transition>
+        <Transition
+          in={show}
+          timeout={300}
+          animation="zoom-in-left"
+          wrapper
+        >
+          <Button size={ButtonSize.Large}>A Large Button</Button>
+        </Transition>
         
       </header>
     </div>
