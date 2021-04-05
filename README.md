@@ -126,3 +126,11 @@ npx jest jest.test.js --watch
 ### 图标库
 
 fontawsome
+
+### Transition 动画
+
+react-transition-group
+
+### StoryBook
+
+npx -p @storybook/cli sb init
