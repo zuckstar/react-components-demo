@@ -1,10 +1,16 @@
 import React, { FC, useState, ChangeEvent, KeyboardEvent, ReactElement, useEffect, useRef } from 'react'
 import classNames from 'classnames'
 import Input, { InputProps } from '../Input/input'
+interface DataSourceObject {
+  value: string
+}
+// 返回交叉类型
+export type DataSourceType<T = {}> = T & DataSourceObject
 
 export interface AutoCompleteProps extends Omit<InputProps, 'onSelect'> {
-  fetchSuggestions: (keyword: string) => string[] | Promise<string[]>
-  onSelect?: (item: string) => void
+  fetchSuggestions: (keyword: string) => DataSourceType[]
+  onSelect?: (item: DataSourceType) => void
+  renderOption?: (item: DataSourceType) => ReactElement
 }
 
 export const AutoComplete: FC<AutoCompleteProps> = (props) => {
@@ -12,11 +18,12 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     fetchSuggestions,
     onSelect,
     value,
+    renderOption,
     ...restProps
   } = props
 
   const [inputValue, setInputValue] = useState(value)
-  const [suggestions, setSuggestions] = useState<string[]>([])
+  const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
@@ -27,12 +34,15 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
       setSuggestions([])
     }
   }
-  const handleSelect = (item: string) => {
-    setInputValue(item)
+  const handleSelect = (item: DataSourceObject) => {
+    setInputValue(item.value)
     setSuggestions([])
     if(onSelect) {
       onSelect(item)
     }
+  }
+  const renderTemplate = (item: DataSourceObject) => {
+    return renderOption ? renderOption(item) : item.value
   }
   const generateDropdown = () => {
     return (
@@ -40,7 +50,7 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         {suggestions.map((item, index)=>{
           return (
             <li key={index} onClick={()=>handleSelect(item)}>
-              {item}
+              {renderTemplate(item)}
             </li>
           )
         })}
