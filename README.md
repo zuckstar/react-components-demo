@@ -133,4 +133,7 @@ react-transition-group
 
 ### StoryBook
 
+使用 StoryBook 库来自动为组件生成文档
+
 npx -p @storybook/cli sb init
+
