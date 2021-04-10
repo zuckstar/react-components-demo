@@ -137,3 +137,14 @@ react-transition-group
 
 npx -p @storybook/cli sb init
 
+### Input 组件开发
+- 1. 分析组件属性
+- 2. 每个组件都包含4个部分：主体代码、样式文件、story 文件、test 文件
+- 3. mvp: Minimum Viable Product(最小化可行产品) 
+### AutoComplete 
+- 拥有同步/异步获取数据
+- 支持用户自定义 change 方法
+- 支持自定义选项
+- 支持键盘操作
+- debounce
+- click outside
