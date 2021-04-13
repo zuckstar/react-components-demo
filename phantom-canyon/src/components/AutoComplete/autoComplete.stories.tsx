@@ -6,11 +6,11 @@ interface LakerPlayerProps {
   value: string;
   number?: number;
 }
-// interface GithubUserProps {
-//   login: string;
-//   url: string;
-//   avatar_url: string;
-// }
+interface GithubUserProps {
+  login: string;
+  url: string;
+  avatar_url: string;
+}
 const SimpleComplete = () => {
   // const lakers = ['bradley', 'pope', 'caruso', 'cook', 'cousins',
   // 'james', 'AD', 'green', 'howard', 'kuzma', 'McGee', 'rando']
@@ -26,14 +26,23 @@ const SimpleComplete = () => {
     {value: 'howard', number: 39},
     {value: 'kuzma', number: 0},
   ]
+  // const handleFetch = (query: string) => {
+  //   return lakersWithNumber.filter(player => player.value.includes(query))
+  // }
   const handleFetch = (query: string) => {
-    return lakersWithNumber.filter(player => player.value.includes(query))
+    return fetch(`https://api.github.com/search/users?q=${query}`)
+      .then(res => res.json())
+      .then(({items}) => {
+        console.log(items)
+        return items.slice(0, 10).map(item => ({ value: item.login, ...item}))
+      })
   }
-  const renderOption = (item: DataSourceType<LakerPlayerProps>) => {
+  const renderOption = (item: DataSourceType) => {
+    const itemWithGithub = item as DataSourceType<GithubUserProps> 
     return (
       <>
-      <h2>Name: {item.value}</h2>
-      <p>Number: {item.number}</p>
+      <p>Name: {itemWithGithub.login}</p>
+      <p>URL: {itemWithGithub.url}</p>
       </>
     )        
   }
