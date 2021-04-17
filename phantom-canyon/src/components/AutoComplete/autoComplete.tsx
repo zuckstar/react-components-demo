@@ -3,6 +3,8 @@ import classNames from 'classnames'
 import Input, { InputProps } from '../Input/input'
 import Icon from '../Icon/icon'
 import useDebounce from '../../hooks/useDebounce'
+import useClickOutside from '../../hooks/useClickOutside'
+import Transition from '../Transition/transition'
 
 interface DataSourceObject {
   value: string
@@ -28,26 +30,42 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
   const [inputValue, setInputValue] = useState(value as string)
   const [suggestions, setSuggestions] = useState<DataSourceType[]>([])
   const [loading, setLoading] = useState(false)
-  const [ highlightIndex, setHighlightIndex] = useState(-1)
+  const [highlightIndex, setHighlightIndex] = useState(-1)
+  const [ showDropdown, setShowDropdown] = useState(false)
+
+  const triggerSearch = useRef(false)
+  const componentRef = useRef<HTMLDivElement>(null)
   const debouncedValue = useDebounce(inputValue, 500)
+  useClickOutside(componentRef, () => { setSuggestions([])})
 
   useEffect(()=> {
-    if(debouncedValue) {
+    if(debouncedValue && triggerSearch.current) {
+      setSuggestions([])
       const results = fetchSuggestions(debouncedValue)
       if(results instanceof Promise) {
+        // 处理异步回调数据
         setLoading(true)
         results.then(data => {
           setLoading(false)
           setSuggestions(data)
+          if(data.length > 0) {
+            setShowDropdown(true)
+          }
         })
       } else {
+        // 处理同步数据
         setSuggestions(results)
+        setShowDropdown(true) 
+        if(results.length > 0) {
+          setShowDropdown(true)
+        }
       }
     } else {
-      setSuggestions([])
+      setShowDropdown(false)
     }
     setHighlightIndex(-1)
   }, [debouncedValue])
+
   const highlight = (index: number) => {
     if(index < 0) index = 0
     if(index >= suggestions.length) {
@@ -55,8 +73,8 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
     }
     setHighlightIndex(index)
   }
+
   const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    console.log(e.key)
     switch(e.key) {
       case 'Enter': 
         if(suggestions[highlightIndex])
@@ -73,29 +91,44 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
         break;
       default: break;
     }
-
   }
+
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value.trim()
     setInputValue(value)
+    triggerSearch.current = true
   }
+
   const handleSelect = (item: DataSourceObject) => {
     setInputValue(item.value)
-    setSuggestions([])
+    setShowDropdown(false)
     if(onSelect) {
       onSelect(item)
     }
+    triggerSearch.current = false
   }
+
   const renderTemplate = (item: DataSourceObject) => {
     return renderOption ? renderOption(item) : item.value
   }
-  const generateDropdown = () => {
 
+  const generateDropdown = () => {
     return (
+      <Transition
+        in={showDropdown || loading}
+        animation="zoom-in-top"
+        timeout={300}
+        onExited={()=>{setSuggestions([])}}
+      >
       <ul className="zuck-suggestion-list">
+        { loading &&
+            <div className="suggstions-loading-icon">
+              <Icon icon="spinner" spin/>
+            </div>
+        }
         {suggestions.map((item, index)=>{
           const cnames = classNames('suggestion-item', {
-            'item-highlighted': index === highlightIndex
+            'is-active': index === highlightIndex
           })
           return (
             <li key={index} onClick={()=>handleSelect(item)} className={cnames}>
@@ -104,18 +137,18 @@ export const AutoComplete: FC<AutoCompleteProps> = (props) => {
           )
         })}
       </ul>
+      </Transition>
     )
   }
   return (
-    <div className="zuck-auto-complete">
+    <div className="zuck-auto-complete" ref={componentRef}>
       <Input
         value={inputValue}
         onChange={handleChange}
         onKeyDown={handleKeyDown}
         {...restProps} 
       />
-      {loading && <ul><Icon icon="spinner" spin /></ul>}
-      {(suggestions.length > 0) && generateDropdown()}
+      {generateDropdown()}
     </div>
   )
 }
