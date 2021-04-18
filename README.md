@@ -148,3 +148,49 @@ npx -p @storybook/cli sb init
 - 支持键盘操作
 - debounce
 - click outside
+
+### Upload 组件
+
+上传一个文件的生命周期
+
+- 开始
+- 点击按钮选择文件
+- beforeUpload(file)
+- onProgress(event.file)
+- onChange(file)
+- onSuccess(response, file)   /  onError(error, file)
+- onRemoved(file)
+
+
+
+XHR （发送异步请求的对象、原生XHR配置复杂）
+
+fetch
+
+​	1、只对网络请求报错、对400、500都当做成功的请求
+
+​	2、默认不会带 cookie
+
+​	3、不支持 abort、不支持超时控制
+
+​	4、没有办法原生监测请求的进度
+
+axios
+
+	1. 支持浏览器和 Node.js ，浏览器中使用的是XHR、在 node 中使用的是 http 模块
+ 	2. 支持 Promise API
+ 	3. 拦截请求和响应 等等
+
+### mock 服务
+
+JSONPlaceholder
+
+Mocky.io
+
+### 发送文件
+
+form 表单发送文件
+
+- encType="multipart/form-data" action
+- input- file
+
