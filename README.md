@@ -141,6 +141,7 @@ npx -p @storybook/cli sb init
 - 1. 分析组件属性
 - 2. 每个组件都包含4个部分：主体代码、样式文件、story 文件、test 文件
 - 3. mvp: Minimum Viable Product(最小化可行产品) 
+
 ### AutoComplete 
 - 拥有同步/异步获取数据
 - 支持用户自定义 change 方法
@@ -181,16 +182,28 @@ axios
  	2. 支持 Promise API
  	3. 拦截请求和响应 等等
 
-### mock 服务
+### Upload: mock 服务
 
 JSONPlaceholder
 
 Mocky.io
 
-### 发送文件
+### Upload: 发送文件
 
 form 表单发送文件
 
 - encType="multipart/form-data" action
 - input- file
 
+### Upload: 丰富化上传数据
+
+- 添加自定义 header
+- 添加 name 属性 - 代表发送到后台的 name 参数
+- 添加 data 属性 - 上传所需的额外参数
+- 添加 input 本身的 file 约束属性 - mutiple, accept
+
+### Upload: 展示更丰富的界面和交互
+
+- 自定义触发元素
+- 支持拖动上传文件
+- onPreview

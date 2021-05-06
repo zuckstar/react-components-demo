@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react'
-import axios from 'axios'
 
 const App: React.FC = () => {
   const [title, setTitle] = useState('')
