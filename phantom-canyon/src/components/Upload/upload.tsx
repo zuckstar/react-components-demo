@@ -1,54 +1,58 @@
 import {ChangeEvent, FC, useRef, useState} from 'react'
 import axios from 'axios'
 import UploadList from './uploadList'
+import Dragger from './dragger'
 import Button, {ButtonType} from '../Button/button'
  
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 
 export interface UploadFile {
-    uid: string;
-    size: number;
-    name: string;
-    status?: UploadFileStatus;
-    percent?: number;
-    raw?: File;
-    response?: any;
-    error?: any;
+  uid: string;
+  size: number;
+  name: string;
+  status?: UploadFileStatus;
+  percent?: number;
+  raw?: File;
+  response?: any;
+  error?: any;
 }
 
 export interface UploadProps {
-    name?: string;
-    action: string;
-    defaultFileList?: UploadFile[];
-    beforeUpload?: (file: File) => boolean | Promise<File>
-    onProgress?: (percentage: number, file: File) => void;
-    onSuccess?: (data: any, file: File) => void;
-    onError?: (err: any, file: File) => void;
-    onChange?: (file: File) => void;
-    onRemove?: (file: UploadFile) => void;
-    headers?: {[key: string]: any};
-    data?: {[key: string]: any};
-    withCredentials?: boolean;
-    accept?: string;
-    multiple?: boolean;
+  name?: string;
+  action: string;
+  defaultFileList?: UploadFile[];
+  beforeUpload?: (file: File) => boolean | Promise<File>
+  onProgress?: (percentage: number, file: File) => void;
+  onSuccess?: (data: any, file: File) => void;
+  onError?: (err: any, file: File) => void;
+  onChange?: (file: File) => void;
+  onRemove?: (file: UploadFile) => void;
+  headers?: {[key: string]: any};
+  data?: {[key: string]: any};
+  withCredentials?: boolean;
+  accept?: string;
+  multiple?: boolean;
+  drag?: boolean;
 }
 
 export const Upload: FC<UploadProps> = (props) => {
     const {
-        action,
-        defaultFileList,
-        beforeUpload,
-        onProgress,
-        onSuccess,
-        onError,
-        onChange,
-        onRemove,
-        name,
-        headers,
-        data,
-        withCredentials,
-        accept,
-        multiple
+      action,
+      defaultFileList,
+      beforeUpload,
+      onProgress,
+      onSuccess,
+      onError,
+      onChange,
+      onRemove,
+      name,
+      headers,
+      data,
+      withCredentials,
+      accept,
+      multiple,
+      drag,
+      children
     } = props
 
     const fileInut = useRef<HTMLInputElement>(null)
@@ -174,10 +178,17 @@ export const Upload: FC<UploadProps> = (props) => {
         <div
             className="zuck-upload-component"
         >
-            <Button 
-                btnType={ButtonType.Primary}
-                onClick={handleClick}
-            >Upload File</Button>
+        <div className="zuck-upload-input"
+          style={{ display: 'inline-block' }}
+          onClick={handleClick}
+        >
+          {drag ?
+            <Dragger onFile={(files) => {uploadFiles(files)}}>
+              {children}
+            </Dragger> :
+            children
+          }
+        </div>
             <input 
                 className="zuck-file-input"
                 style={{display: 'none'}}

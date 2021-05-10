@@ -2,6 +2,7 @@ import React  from 'react'
 import { storiesOf } from '@storybook/react'
 import { action } from '@storybook/addon-actions'
 import { Upload, UploadFile } from './upload'
+import Icon from '../Icon/icon'
 
 const defaultFileList: UploadFile[] = [
   { uid: '123', size: 1234, name: 'hello.md', status: 'uploading', percent: 30 },
@@ -22,17 +23,22 @@ const defaultFileList: UploadFile[] = [
 const SimpleUpload = () => {
   return (
     <Upload 
-        action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
-        onProgress={action('progress')}
-        onSuccess={action('success')}
-        onError={action('error')}
-        name="fileName"
-        defaultFileList={defaultFileList}
-        data={{'key':'value'}}
-        headers={{'x-Powered-By':'zuck'}}
-        accept=".jpg"
-        multiple
-    />
+      action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+      onProgress={action('progress')}
+      onSuccess={action('success')}
+      onError={action('error')}
+      name="fileName"
+      defaultFileList={defaultFileList}
+      data={{'key':'value'}}
+      headers={{'x-Powered-By':'zuck'}}
+      accept=".jpg"
+      multiple
+      drag
+    >
+      <Icon icon="upload" size="5x" theme="secondary" />
+      <br />
+      <p>Drag file over to upload</p>
+    </Upload>
   )
 }
 
