@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom';
 import reportWebVitals from './reportWebVitals';
 import RouterConfig from './routes'
 import { hashHistory } from "react-router"
-
+import 'phantom-canyon/build/index.css'
 
 
 ReactDOM.render(

@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Button } from 'phantom-canyon'
 import logo from './logo.svg';
 import './App.css';
 
@@ -24,13 +25,12 @@ const App: React.FC = () => {
     <div className="App">
       
       <header className="App-header">
+       <Button btnType="primary" size="lg" onClick={() => setShow(!show)}>Toggle</Button>
         <img src={logo} className="App-logo" alt="logo" />
         <Link to="/hello">To Hello Page</Link>
         <Link to="/context">To Context</Link>
         <Link to="/ref">To Ref</Link>
-        <p>
-          <button onClick={() => setShow(!show)}>Toggle Tracker</button>
-        </p>
+        
         { 
         loading ? <p>🐶 读取中</p> : <img src={dogResult && dogResult.message} alt="图片"/>
         }

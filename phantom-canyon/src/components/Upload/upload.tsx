@@ -1,8 +1,8 @@
-import {ChangeEvent, FC, useRef, useState} from 'react'
+import React, {ChangeEvent, FC, useRef, useState} from 'react'
 import axios from 'axios'
 import UploadList from './uploadList'
 import Dragger from './dragger'
-import Button, {ButtonType} from '../Button/button'
+// import Button, {ButtonType} from '../Button/button'
  
 export type UploadFileStatus = 'ready' | 'uploading' | 'success' | 'error'
 

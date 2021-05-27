@@ -32,7 +32,7 @@ components/
 
 ### 创建自己的色彩体系
 
-- 系统色板 = 基础色板 + 中性色板 
+- 系统色板 = 基础色板 + 中性色板
 - 系统色 = 主题色 + 基础色 + 功能色
 
 ### 组件库样式变量分类
@@ -44,11 +44,10 @@ components/
 - 边框和阴影
 - 可配置开关
 
-
 ### normalize.css
 
 - 保护有用的样式
-- 修复浏览器自身的bug，保证样式的一致性
+- 修复浏览器自身的 bug，保证样式的一致性
 
 ### Button 组件需求分析
 
@@ -65,7 +64,7 @@ components/
 
 样式分析：
 
-background、font-size、padding 
+background、font-size、padding
 
 ### 测试的重要性
 
@@ -77,6 +76,7 @@ background、font-size、padding
 ### 测试金字塔
 
 塔尖 => 塔底
+
 - UI Test
 - Service Test
 - Unit Test（单元测试）
@@ -109,8 +109,6 @@ expect(value).toBeGreaterThan(x) // 比 x 大
 expect(value).toBeLessThan(x) // 比 x 小
 ...
 
-
-
 监听测试用例变化
 
 ```
@@ -121,7 +119,7 @@ npx jest jest.test.js --watch
 
 - React-testing-library(默认包含在 create-react 中)
 - Jest-dom 库，给 jest 增加了针对 DOM 相关的断言
-- 增加 SetupTests.ts ,并在文件内填入 `import '@testing-library/jest-dom'`来扩展 jest的断言库
+- 增加 SetupTests.ts ,并在文件内填入 `import '@testing-library/jest-dom'`来扩展 jest 的断言库
 
 ### 图标库
 
@@ -138,11 +136,13 @@ react-transition-group
 npx -p @storybook/cli sb init
 
 ### Input 组件开发
-- 1. 分析组件属性
-- 2. 每个组件都包含4个部分：主体代码、样式文件、story 文件、test 文件
-- 3. mvp: Minimum Viable Product(最小化可行产品) 
 
-### AutoComplete 
+- 1. 分析组件属性
+- 2. 每个组件都包含 4 个部分：主体代码、样式文件、story 文件、test 文件
+- 3. mvp: Minimum Viable Product(最小化可行产品)
+
+### AutoComplete
+
 - 拥有同步/异步获取数据
 - 支持用户自定义 change 方法
 - 支持自定义选项
@@ -159,28 +159,27 @@ npx -p @storybook/cli sb init
 - beforeUpload(file)
 - onProgress(event.file)
 - onChange(file)
-- onSuccess(response, file)   /  onError(error, file)
+- onSuccess(response, file) / onError(error, file)
 - onRemoved(file)
 
-
-
-XHR （发送异步请求的对象、原生XHR配置复杂）
+XHR （发送异步请求的对象、原生 XHR 配置复杂）
 
 fetch
 
-​	1、只对网络请求报错、对400、500都当做成功的请求
+​ 1、只对网络请求报错、对 400、500 都当做成功的请求
 
-​	2、默认不会带 cookie
+​ 2、默认不会带 cookie
 
-​	3、不支持 abort、不支持超时控制
+​ 3、不支持 abort、不支持超时控制
 
-​	4、没有办法原生监测请求的进度
+​ 4、没有办法原生监测请求的进度
 
 axios
 
-	1. 支持浏览器和 Node.js ，浏览器中使用的是XHR、在 node 中使用的是 http 模块
- 	2. 支持 Promise API
- 	3. 拦截请求和响应 等等
+    1. 支持浏览器和 Node.js ，浏览器中使用的是XHR、在 node 中使用的是 http 模块
+
+2. 支持 Promise API
+3. 拦截请求和响应 等等
 
 ### Upload: mock 服务
 
@@ -207,3 +206,9 @@ form 表单发送文件
 - 自定义触发元素
 - 支持拖动上传文件
 - onPreview
+
+### tsconfig.json
+
+### npm link
+
+利用 npm link 把项目的依赖链接到本地的项目中去
