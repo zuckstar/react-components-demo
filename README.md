@@ -212,3 +212,74 @@ form 表单发送文件
 ### npm link
 
 利用 npm link 把项目的依赖链接到本地的项目中去
+
+### npm
+
+- `npm add user` 添加用户
+- `npm whoami` 查看当前用户
+
+version 版本号:
+
+主版本号(不兼容的大版本更新).次版本号(可向下兼容的功能更新).修订号(修复 bug)
+0.1.0
+
+author: 作者名称
+
+license：开源软件遵守的协议
+
+keywords: 关键词搜索
+
+homepage: 项目主页
+
+repository: 项目地址
+
+files: 想上传的文件
+
+`npm publish` 发布一个新的版本
+
+devDependencies: 开发过程中所需的依赖库
+
+dependencies: 生成最终产物所需的依赖库
+
+peerDependencies: 不会被 npm 自动安装，会声明 warning 的日志
+peerDependencies 的目的是提示宿主环境去安装满足插件 peerDependencies 所指定依赖的包，然后在插件 import 或者 require 所依赖的包的时候，永远都是引用宿主环境统一安装的 npm 包，最终解决插件与所依赖包不一致的问题。
+
+### 添加和发布 commit 前检查
+
+- 代码规范 eslint
+- 单元测试
+
+cross-env 跨平台设置环境变量的工具
+
+CI: CI = true, test && lint
+
+Husky 工具
+
+- pre-commit
+- pre-push
+
+commit 和 push 前进行检查
+
+### storybook 生成静态页面
+
+### CI/CD
+
+组件库 => unit tests （单元测试） e2e tests（端对端测试）=> npm publish => build 文档静态文件 => build 成功 => 上传到服务器 => 生成新的站点
+
+CI - 持续集成
+
+- 频繁地将代码集成到主干
+- 快速发现错误
+- 防止分支大幅偏离主干
+- 快速评审，每次 push 的时候都运行测试，通过测试和代码规范
+
+CD - 持续交付、持续部署
+
+- 频繁地将软件的新版本，交付给质量团队或者用户
+- 代码通过评审以后，自动部署到生成环境
+
+自动化平台 Travis CI， travis-ci.com
+
+添加 .travis.yml 文件, npm ci
+
+github pages
